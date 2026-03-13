@@ -21,9 +21,9 @@ Sistema em desenvolvimento o para gerenciamento de barbearias.
 ## ⚙️ Funcionalidades do barberio
 
 - listar clientes
-- cadastro de clientes
-- deletar de clientes
-- atualizar de clientes
+- cadastrar clientes
+- deletar clientes
+- atualizar clientes
 
 - ## ⚙️ Funcionalidades da barbearia
 
