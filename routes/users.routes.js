@@ -8,7 +8,7 @@ import {
 import express from "express";
 
 import authorize from "../middlewares/verifyAccess.js";
-import { verifyId } from "../middlewares/verifyJwt.js";
+import { verifyToken } from "../middlewares/verifyJwt.js";
 import verifyRatelimiter from "../middlewares/verifyRatelimiter.js";
 import { globalLimiter, registerLimiter } from "../services/rateLimiter.js";
 const routerUsers = express.Router();
@@ -62,7 +62,7 @@ routerUsers.get(
 routerUsers.post(
   "/create/:id_barbearia",
   verifyRatelimiter(registerLimiter),
-  verifyId,
+  verifyToken,
   async (req, res) => {
     const id_barbearia = req.params.id_barbearia;
 
