@@ -19,6 +19,8 @@ const verifyToken = (req, res, next) => {
     const token = authHeader.replace("Bearer ", "");
     const decode = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decode;
+    req.id = decode.id;
+
     next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {
@@ -35,6 +37,7 @@ const verifyToken = (req, res, next) => {
     return res.status(401).json({ error: "Acesso negado!" });
   }
 };
+
 export default verifyToken;
 
 export { verifyToken };
