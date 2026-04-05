@@ -120,27 +120,28 @@ routerBarbers.post(
     } catch (error) {
       if (error.cause?.detail.includes("Chave (telefone)")) {
         return res.status(400).json({
-          satus: false,
+          status: false,
           error: "Telefone já cadastrado",
         });
       }
 
       if (error.cause?.detail.includes("Chave (email)=")) {
         return res.status(400).json({
-          satus: false,
+          status: false,
           error: "Email já cadastrado",
         });
       }
 
       if (error.cause?.column === "nome") {
         return res.status(400).json({
-          satus: false,
+          status: false,
           error: "Nome invalido",
         });
       }
 
       return res.status(500).json({
-        error: error,
+        status: false,
+        error: "error interno no servidor",
       });
     }
   },
