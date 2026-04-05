@@ -1,17 +1,15 @@
 import { RateLimiterRedis } from "rate-limiter-flexible";
 import Redis from "ioredis";
+import "dotenv/config";
 
-const redis = new Redis({
-  host: "127.0.0.1",
-  port: 6379,
-});
-
-redis.on("connect", () => console.log("Redis conectado"));
-redis.on("error", (err) => console.error("Redis erro:", err.message));
+const client = new Redis(
+  "rediss://default:gQAAAAAAATUrAAIncDFkZDY1MDY0N2NmMmI0ZTYyYmJhMzFiNTYxNzUxNWIzZnAxNzkxNDc@amusing-gorilla-79147.upstash.io:6379",
+);
+await client.set("foo", "bar");
 
 // GLOBAL (API)
 export const globalLimiter = new RateLimiterRedis({
-  storeClient: redis,
+  storeClient: client,
   keyPrefix: "global",
   points: 100,
   duration: 60,
@@ -20,7 +18,7 @@ export const globalLimiter = new RateLimiterRedis({
 
 // LOGIN (mais restrito)
 export const loginLimiter = new RateLimiterRedis({
-  storeClient: redis,
+  storeClient: client,
   keyPrefix: "login",
   points: 5,
   duration: 60,
@@ -29,7 +27,7 @@ export const loginLimiter = new RateLimiterRedis({
 
 // REGISTER
 export const registerLimiter = new RateLimiterRedis({
-  storeClient: redis,
+  storeClient: client,
   keyPrefix: "register",
   points: 10,
   duration: 60,
