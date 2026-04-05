@@ -15,7 +15,7 @@ export const globalLimiter = new RateLimiterRedis({
   keyPrefix: "global",
   points: 100,
   duration: 60,
-  blockDuration: 60
+  blockDuration: 60,
 });
 
 // LOGIN (mais restrito)
@@ -24,7 +24,7 @@ export const loginLimiter = new RateLimiterRedis({
   keyPrefix: "login",
   points: 5,
   duration: 60,
-  blockDuration: 300
+  blockDuration: 300,
 });
 
 // REGISTER
@@ -33,5 +33,5 @@ export const registerLimiter = new RateLimiterRedis({
   keyPrefix: "register",
   points: 10,
   duration: 60,
-  blockDuration: 120
+  blockDuration: 120,
 });
