@@ -1,18 +1,14 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
-/**
- * Middlewares de autorizacao dinamico
- * @param {array} rolesPermitidos lista de cargos que podem acessar a rota
- */
-
-const authorize = (rolesPermitidos = []) => {
+export const verifyAccess = (usersAllowed = []) => {
   return (req, res, next) => {
     const authHeaders = req.headers.authorization;
 
     if (!authHeaders || !authHeaders.startsWith("Bearer ")) {
       return res.status(401).json({
         status: 401,
+        message: "Usuario não autorizado",
       });
     }
 
@@ -21,10 +17,7 @@ const authorize = (rolesPermitidos = []) => {
     try {
       const decode = jwt.verify(token, process.env.JWT_SECRET);
 
-      if (
-        rolesPermitidos.includes("*") ||
-        rolesPermitidos.includes(decode.tipo)
-      ) {
+      if (usersAllowed.includes("*") || usersAllowed.includes(decode.tipo)) {
         req.status = true;
         req.user = decode;
         return next();
@@ -47,5 +40,3 @@ const authorize = (rolesPermitidos = []) => {
     }
   };
 };
-
-export default authorize;
