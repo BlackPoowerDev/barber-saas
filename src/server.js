@@ -1,5 +1,5 @@
 import express from "express";
-import morgam from "morgan";
+// import morgam from "morgan";
 import cors from "cors";
 import "dotenv/config";
 
@@ -10,7 +10,7 @@ import routerUsers from "./routes/users.routes.js";
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(morgam("dev"));
+// app.use(morgam("dev"));
 app.set("trust proxy", true);
 app.use("/v1/barberShop", routerBarberShop);
 app.use("/v1/barber", routerBarber);
